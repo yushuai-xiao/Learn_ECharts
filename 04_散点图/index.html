@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="main" style="width:600px;height:400px"></div>
+  <script src="../src/echarts.js"></script>
+  <script>
+    var myChart = echarts.init(document.getElementById('main'))
+    var xDataArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+    var data = [{ "gender": "female", "height": 161.2, "weight": 51.6 }, {
+                  "gender": "female", "height": 167.5, "weight": 59 }, { "gender": "female",
+                  "height": 159.5, "weight": 49.2 }, { "gender": "female", "height": 157,
+                  "weight": 63 }, { "gender": "female", "height": 155.8, "weight": 53.6 }, {
+                  "gender": "female", "height": 170, "weight": 59 }, { "gender": "female",
+                  "height": 159.1, "weight": 47.6 }, { "gender": "female", "height": 166,
+                  "weight": 69.8 }, { "gender": "female", "height": 176.2, "weight": 66.8 }, {
+                  "gender": "female", "height": 160.2, "weight": 75.2 }, { "gender": "female",
+                  "height": 172.5, "weight": 55.2 }, { "gender": "female", "height": 170.9,
+                  "weight": 54.2 }, { "gender": "female", "height": 172.9, "weight": 62.5 }, {
+                  "gender": "female", "height": 153.4, "weight": 42 }, { "gender": "female",
+                  "height": 160, "weight": 50 }, { "gender": "female", "height": 147.2,
+                  "weight": 49.8 }]
+    
+    var axisData = []
+    for(var i = 0;i<data.length;i++){
+      var height = data[i].height
+      var weight = data[i].weight
+      var itemArr = [height,weight]
+      axisData.push(itemArr)
+    }
+
+
+    var options = {
+      xAxis:{
+        type:"value",
+        scale: true
+      },
+      yAxis:{
+        type:'value',
+        scale: true
+      },
+      series:[
+        {
+          type:'scatter',
+          data:axisData,
+          
+          // 散点的大小
+          // symbolSize: 25,
+          // 散点的颜色
+          // itemStyle:{
+          //   color:'red'
+          // }
+          // 回调函数写法
+          symbolSize:function(arg){
+            var weight = arg[1]
+            var height = arg[0] / 100
+            // BMI > 28 则代表肥胖, 肥胖的人用大的散点标识, 正常的人用小散点标识
+            // BMI: 体重/ 身高*身高 
+            var bmi = weight / (height * height)
+            if(bmi > 28){
+              return 20
+            }
+            return 5
+          },
+          itemStyle:{
+            color:function(arg){
+              var weight = arg.data[1]
+              var height = arg.data[0] / 100
+              var bmi = weight / (height * height)
+              if(bmi > 28){
+                return 'red'
+              }
+              return 'green'
+            }
+          }
+        }
+      ]
+    }
+
+    myChart.setOption(options)
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="main" style="width:600px;height:400px"></div>
+  <script src="../src/echarts.js"></script>
+
+  <script>
+    var myChart = echarts.init(document.getElementById('main'))
+    
+    var pieData = [
+      {
+        value:11231,
+        name:'淘宝'
+      },
+      {
+        value:22673,
+        name:'京东'
+      },
+      {
+        value:6123,
+        name:'唯品会'
+      },
+      {
+        value:8989,
+        name:'1号店'
+      },
+      {
+        value:6700,
+        name:'聚美优品'
+      }
+    ]
+
+    var options = {
+      /* 
+        饼图的数据是由 name 和 value 组成的字典所形成的数组
+        饼图无须配置 xAxis 和 yAxis
+      */
+      series:[
+        {
+          type:'pie',
+          data:pieData,
+          label:{
+            show:true,
+            formatter:function(arg){
+              console.log(arg)
+              return arg.data.name + '平台 ' + arg.data.value + '元\n' + arg.percent + '%'
+            }
+          }
+        }
+      ]
+    }
+
+    myChart.setOption(options)
+  </script>
+</body>
+</html>

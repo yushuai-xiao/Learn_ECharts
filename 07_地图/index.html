@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="main" style="width:600px;height:400px;"></div>
+
+  <script src="../src/echarts.js"></script>
+  <script src="../src/jquery.js"></script>
+
+  <!-- <script src="./js/tool.js"></script> -->
+  <script>
+    var myChart = echarts.init(document.getElementById('main'))
+    $.get('../src/json/china.json', function (chinaJson) {
+      echarts.registerMap('china', chinaJson)
+      var options = {
+        geo:{
+          type:'map',
+          map:'china',
+          roam: true, // 运行使用鼠标进行拖动和缩放
+          label: {
+            show: true
+          },
+          zoom: 0.8, // 地图的缩放比例, 大于1代表放大, 小于1代表缩小
+          center: [87.617733, 43.792818] // 当前视角的中心点，用经纬度表示
+        }
+      }
+      myChart.setOption(options)
+    })
+  </script>
+</body>
+
+</html>

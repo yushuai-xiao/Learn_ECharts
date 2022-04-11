@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="main" style="width:600px;height:400px"></div>
+  <script src="../src/echarts.js"></script>
+
+  <script>
+    // 初始化echarts
+    var myChart = echarts.init(document.getElementById('main'))
+
+    // 配置项
+    var xDataArr = ['张三','李四','王五','闰土','小明','茅台','二妞','大强']
+    var yDataArr1 = [88,92,63,77,94,80,72,66]
+    var yDataArr2 = [67,75,84,66,78,72,88,92]
+    var option = {
+      // 标题
+      title:{
+        text:'成绩', //标题文字
+        textStyle:{
+          color:'green' //文字颜色
+        },
+        borderWidth:5, //标题边框
+        borderColor:'red',//标题边框颜色
+        borderRadius:5, //标题边框圆角
+        left:20, //标题的位置
+        top:20
+      },
+      // 提示框
+      tooltip:{
+        trigger:'item',
+        triggerOn:'click',
+        formatter:'{a}:{b}:{c}'
+      },
+
+      // 网格grid
+      grid:{
+        show:true,//显示grid
+        // borderWidth:10,//grid的边框宽度
+        // borderColor:'red',//grid边框的颜色
+        // left:100,//grid的位置
+        // top:100,
+        // width:300,//grid的大小
+        // height:150
+      },
+      xAxis:{
+        type:'category',
+        data:xDataArr,
+        // 设置x轴在上方还是下方
+        position:'top'
+      },
+      yAxis:{
+        type:'value',
+        // 设置y轴在左方还是在右方
+        position:'right'
+      },
+      //  区域缩放 dataZoom
+      dataZoom:[
+        {
+          type:'slider',//可设置slider,inside
+          xAxisIndex:0,//产生的作用域轴
+        },
+        {
+          type:"slider",
+          yAxisIndex:0,
+          start:0,
+          end:80
+        }
+      ],
+      series:[
+        { 
+          name:'语文',
+          type:'bar',
+          data:yDataArr1,
+        }
+      ]
+    }
+    // 设置配置项
+    myChart.setOption(option)
+  </script>
+</body>
+</html>

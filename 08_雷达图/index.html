@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="main" style="width:600px;height:400px"></div>
+  <script src="../src/echarts.js"></script>
+
+  <script>
+    var myChart = echarts.init(document.getElementById('main'))
+
+    //  定义各个维度的最大值
+    var dataMax = [
+      {
+        name: '易用性', max: 100
+      },
+      {
+        name: '功能', max: 100
+      },
+      {
+       name: '拍照', max: 100
+      },
+      {
+        name: '跑分', max: 100
+      },
+      {
+        name: '续航', max: 100
+      }
+    ]
+    // 准备具体产品的数据
+    var hwScore = [80, 90, 80, 82, 90]
+    var zxScore = [70, 82, 75, 70, 78]
+
+    var options = {
+      radar:{
+        indicator:dataMax,
+        // 绘制类型
+        /* 
+          雷达图绘制类型，支持 'polygon' 和 'circle'
+          'polygon' : 多边形
+          'circle' 圆形
+        */
+        shape:'circle'
+      },
+      series:{
+        type:'radar',
+        // 显示数值
+        label:{
+          show:true
+        },
+        // 区域面积
+        areaStyle:{
+
+        },
+        data:[
+          {
+            name:'华为手机',
+            value:hwScore
+          },
+          {
+            name:'中兴手机',
+            value:zxScore
+          }
+        ]
+      }
+    }
+
+    myChart.setOption(options)
+  </script>
+</body>
+</html>
